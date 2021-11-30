@@ -4,7 +4,7 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import "./DeedRepository.sol";
 
-contract AuctionRepository {
+contract AuctionRepository  {
     
     // Array with all auctions
     Auction[] public auctions;
@@ -97,7 +97,7 @@ contract AuctionRepository {
             tempAmount = lastBid.amount;
         }
         
-        if(ethAmountSent < tempAmount)  revert();
+        if(ethAmountSent <= tempAmount)  revert();
 
         if(bidsLength > 0) {
             if(!payable(lastBid.from).send(lastBid.amount)) revert();
@@ -110,20 +110,14 @@ contract AuctionRepository {
 
     }
 
-    
     function cancelAuction(uint _auctionId) public isOwner(_auctionId) {
-        Auction memory myAuction = auctions[_auctionId];
         uint bidsLength = auctionBids[_auctionId].length;
 
         // if there are bids refund the last bid
         if( bidsLength > 0 ) {
             Bid memory lastBid = auctionBids[_auctionId][bidsLength - 1];
-            if(!lastBid.from.send(lastBid.amount)) {
-                revert();
-            }
+            if(!payable(lastBid.from).send(lastBid.amount)) revert();
         }
-        
-        // remove this after implementing transfer of money
         auctions[_auctionId].active = false;
 
         // approve and transfer from this contract to auction owner
@@ -132,5 +126,20 @@ contract AuctionRepository {
         //     emit AuctionCanceled(msg.sender, _auctionId);
         // }
     }
-    
+    function finaliseAuction(uint _auctionId) public isOwner(_auctionId) {
+            Auction memory myAuction = auctions[_auctionId];
+            uint bidsLength = auctionBids[_auctionId].length;
+            Bid memory lastBid;
+            address winner;
+            if(bidsLength > 0) {
+                 lastBid = auctionBids[_auctionId][bidsLength - 1];
+                 winner = lastBid.from;
+             }
+            address owner=myAuction.owner;
+            uint tokenId=myAuction.deedId;
+            DeedRepository(myAuction.deedRepositoryAddress).safeTransferFrom(owner,winner,tokenId);
+            auctions[_auctionId].finalized = true;
+            auctions[_auctionId].active = false;
+
+    }
 }
