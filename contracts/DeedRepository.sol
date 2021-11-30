@@ -4,7 +4,7 @@ pragma solidity >=0.7.0 <0.9.0;
 
 // import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol";
-import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol';
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
 
 
 
@@ -114,8 +114,5 @@ contract DeedRepository is ERC721, Ownable {
     * @param _tokenId uint256 represents a specific deed
     */
     event DeedRegistered(address _by, uint256 _tokenId);
-    
-    
-    
     
 }
