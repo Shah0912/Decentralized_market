@@ -1,1 +1,4 @@
 .deps
+.vscode
+build/
+node_modules/
