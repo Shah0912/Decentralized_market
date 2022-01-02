@@ -47,7 +47,8 @@
                     <v-btn @click="cancelAuction(auc.id)" :disabled="!isAuctionOwner(auc) || !auc.active" style=" margin:0; width:100%;" color="teal" dark> Cancel Auction </v-btn>
                 </div>
                 <div style="margin-top:13px;">
-                    <v-btn @click="finalizeAuction(auc.id)" :disabled="!isAuctionOwner(auc) && !isLastBidder(auc)" style=" margin:0; width:100%;" color="teal" dark> Finalize Auction </v-btn>
+                    <!-- <v-btn @click="finalizeAuction(auc.id)" :disabled="!isAuctionOwner(auc) && !isLastBidder(auc)" style=" margin:0; width:100%;" color="teal" dark> Finalize Auction </v-btn> -->
+                    <v-btn @click="finalizeAuction(auc.id)" :disabled="!isAuctionOwner(auc)" style=" margin:0; width:100%;" color="teal" dark> Finalize Auction </v-btn>
                 </div>
                 </div>
             </v-flex>
