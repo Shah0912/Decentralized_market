@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import deedStore from './deedStore'
 
 export default createStore({
   state: {
@@ -16,5 +17,6 @@ export default createStore({
   actions: {
   },
   modules: {
+    deedStore
   }
 })
