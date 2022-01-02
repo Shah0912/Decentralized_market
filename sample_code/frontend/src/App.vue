@@ -167,9 +167,9 @@
                                             ></v-text-field>
                                     </v-flex>
 
-                                    <v-flex  style="height:100%; padding-bottom:20px;" xs12 sm12 md12>
+                                    <!-- <v-flex  style="height:100%; padding-bottom:20px;" xs12 sm12 md12>
                                         <b style="color:red;">Image(png/jpg):</b> <input  type="file" @change="fileSelectionEvent($event)">
-                                    </v-flex>
+                                    </v-flex> -->
 
                                     <v-flex  style="height:100%; padding-bottom:20px;" xs12 sm12 md12>
                                         <v-text-field
@@ -409,8 +409,9 @@ export default {
                 Object.keys(this.auction).map((key) => {
                     formData.append(key, this.auction[key])
                 })
-                const response = await this.$http.post(`${this.$config.BZZ_ENDPOINT}/bzz:/`, formData)
-                this.auction.metadata = response.body
+                // const response = await this.$http.post(`${this.$config.BZZ_ENDPOINT}/bzz:/`, formData)
+                // this.auction.metadata = response.body
+                this.auction.metadata = ''
 
                 console.log(this.auction)
 

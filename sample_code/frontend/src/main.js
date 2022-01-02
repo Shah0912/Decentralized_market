@@ -84,7 +84,7 @@ Vue.mixin({
             // pull accounts every 2 seconds
             setInterval(() => {
                 web3.eth.getAccounts((err, data) => {
-                    if(data.length > 0) store.setWeb3DefaultAccount(data[1])
+                    if(data.length > 0) store.setWeb3DefaultAccount(data[0])
                 })
             }, 2000)
         }

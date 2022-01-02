@@ -47,18 +47,18 @@
                     <v-btn @click="cancelAuction(auc.id)" :disabled="!isAuctionOwner(auc) || !auc.active" style=" margin:0; width:100%;" color="teal" dark> Cancel Auction </v-btn>
                 </div>
                 <div style="margin-top:13px;">
-                    <v-btn @click="finalizeAuction(auc.id)" :disabled="!isAuctionOwner(auc) || !isLastBidder(auc)" style=" margin:0; width:100%;" color="teal" dark> Finalize Auction </v-btn>
+                    <v-btn @click="finalizeAuction(auc.id)" :disabled="!isAuctionOwner(auc) && !isLastBidder(auc)" style=" margin:0; width:100%;" color="teal" dark> Finalize Auction </v-btn>
                 </div>
                 </div>
             </v-flex>
-            <v-flex d-flex xs12 sm12 md4 style="">
+            <!-- <v-flex d-flex xs12 sm12 md4 style="">
                 <v-carousel>
                     <v-carousel-item v-bind:src="auc.image"></v-carousel-item>
                 </v-carousel>
-            </v-flex>
+            </v-flex> -->
 
         </v-layout>
-        <v-layout  style=" color: white; padding: 25px; text-align: center;     background-color: rgb(3, 46, 66);"  align-center row wrap>
+        <!-- <v-layout  style=" color: white; padding: 25px; text-align: center;     background-color: rgb(3, 46, 66);"  align-center row wrap>
             <v-flex style="height:100%; padding-bottom:20px;" xs12 sm12 md12>
                 
                 <h1 style="margin-bottom: 20px; line-height: 32px;">Chatroom</h1>
@@ -71,8 +71,8 @@
                     <v-btn @click="joinRoom()" :disabled="loading" outline color="white"> <v-progress-circular v-show="loading" indeterminate v-bind:size="20" color="teal"></v-progress-circular> Join</v-btn>
                 </div>
             </v-flex>
-        </v-layout>
-        <v-layout v-show="connected" wrap row>
+        </v-layout> -->
+        <!-- <v-layout v-show="connected" wrap row>
             <v-flex xs12 sm3 md3>
             <v-card>
                 <v-list subheader>
@@ -130,7 +130,7 @@
                 </v-list>
             </v-card>
         </v-flex>
-    </v-layout>
+    </v-layout> -->
     <v-dialog v-model="loadingModal" persistent max-width="290">
         <v-card>
             <v-card-title class="headline">Please wait...</v-card-title>
@@ -279,11 +279,11 @@
                     }
                     let auction = await this.$auctionRepoInstance.findById(auctionId)
                     // get metadata
-                    const swarmResult = await this.$http.get(`${this.$config.BZZ_ENDPOINT}/bzz-list:/${auction[3]}`)
+                    // const swarmResult = await this.$http.get(`${this.$config.BZZ_ENDPOINT}/bzz-list:/${auction[3]}`)
                     let imageUrl = ''
-                    swarmResult.body.entries.map((entry) => {
-                        if('contentType' in entry) imageUrl = `${this.$config.BZZ_ENDPOINT}/bzz-raw:/${auction[3]}/${entry.path}`
-                    })
+                    // swarmResult.body.entries.map((entry) => {
+                    //     if('contentType' in entry) imageUrl = `${this.$config.BZZ_ENDPOINT}/bzz-raw:/${auction[3]}/${entry.path}`
+                    // })
                     
                     let expires = new Date(auction[1].toNumber() * 1000 ), now = new Date()
                     const expirationInHuman = moment.duration(moment(now).diff(expires)).humanize()

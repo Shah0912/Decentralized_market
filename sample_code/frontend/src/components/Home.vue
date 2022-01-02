@@ -37,9 +37,9 @@
 
             <v-flex :key="index" v-for="(auction, index) in auctions" style="height:100%; padding:30px;" xs12 sm4 md4>
                 <v-card>
-                    <v-card-media :src="auction.image" height="300px">
-                        <!-- <img height="300px" :src="auction.image" /> -->
-                    </v-card-media>
+                    <!-- <v-card-media :src="auction.image" height="300px">
+                        <img height="300px" :src="auction.image" />
+                    </v-card-media> -->
                     <v-card-title style="text-align:left;" primary-title>
                         <div>
                             
@@ -55,7 +55,7 @@
                     </v-card-title>
                     <v-card-actions>
                         <v-btn :disabled="!auction.active" @click="openAuction(auction.id)" outline color="teal" flat>Bid</v-btn>
-                        <v-btn @click="openAuction(auction.id)" outline color="blue" flat>Chat</v-btn>
+                        <!-- <v-btn @click="openAuction(auction.id)" outline color="blue" flat>Chat</v-btn> -->
                         <v-spacer></v-spacer>
                     </v-card-actions>
                     <v-slide-y-transition>
@@ -104,11 +104,11 @@
                 for(let i=0;i<count;i++){
                     let auction = await this.$auctionRepoInstance.findById(i)
                     // get metadata
-                    const swarmResult = await this.$http.get(`${this.$config.BZZ_ENDPOINT}/bzz-list:/${auction[3]}`)
+                    // const swarmResult = await this.$http.get(`${this.$config.BZZ_ENDPOINT}/bzz-list:/${auction[3]}`)
                     let imageUrl = ''
-                    swarmResult.body.entries.map((entry) => {
-                        if('contentType' in entry) imageUrl = `${this.$config.BZZ_ENDPOINT}/bzz-raw:/${auction[3]}/${entry.path}`
-                    })
+                    // swarmResult.body.entries.map((entry) => {
+                    //     if('contentType' in entry) imageUrl = `${this.$config.BZZ_ENDPOINT}/bzz-raw:/${auction[3]}/${entry.path}`
+                    // })
                     this.auctions.push({
                         id: i,
                         image: imageUrl,
